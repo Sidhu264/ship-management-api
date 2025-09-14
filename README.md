@@ -154,5 +154,3 @@ Import into Postman to test the API.
 - ✅ `PUT /ships/{id}` returns **200 OK** with updated values  
 - ✅ `DELETE /ships/{id}` returns **200 OK**  
 
-- ✅ `PUT /ships/{id}` returns **200 OK** with updated values  
-- ✅ `DELETE /ships/{id}` returns **200 OK**  
