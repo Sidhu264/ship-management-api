@@ -34,12 +34,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/ships",
-					"protocol": "http",
+					"raw": "https://ship-management-api.onrender.com/ships",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"ship-management-api",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ships"
 					]
@@ -75,12 +76,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/ships/1",
-					"protocol": "http",
+					"raw": "https://ship-management-api.onrender.com/ships/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"ship-management-api",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ships",
 						"1"
@@ -125,12 +127,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/ships",
-					"protocol": "http",
+					"raw": "https://ship-management-api.onrender.com/ships",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"ship-management-api",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ships"
 					]
@@ -173,15 +176,16 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/ships/1",
-					"protocol": "http",
+					"raw": "https://ship-management-api.onrender.com/ships/3",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"ship-management-api",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ships",
-						"1"
+						"3"
 					]
 				},
 				"description": "### Update Ship Information\n\nThis endpoint allows you to update the information of a specific ship identified by its unique ID. In this case, the ship with ID `1` is being updated with new details.\n\n#### Request\n\n- **Method**: PUT\n    \n- **URL**: `http://localhost:8080/ships/1`\n    \n- ParameterTypeDescriptionnamestringThe updated name of the ship.emailstringThe updated email associated with the ship.\n    \n\n**Example Request Body**:\n\n``` json\n{\n  \"name\": \"Updated Titanic\",\n  \"email\": \"titanicUpdated@ships.com\"\n}\n\n ```\n\n#### Response\n\nUpon a successful update, the server will respond with a status code of `200` and a JSON object containing the updated ship information. The structure of the response is as follows:\n\n- **id**: The unique identifier of the ship (may be `0` if not applicable).\n    \n- **name**: The updated name of the ship (will reflect the new value).\n    \n- **email**: The updated email associated with the ship (will reflect the new value).\n    \n\n**Example Response**:\n\n``` json\n{\n  \"id\": 1,\n  \"name\": \"Updated Titanic\",\n  \"email\": \"titanicUpdated@ships.com\"\n}\n\n ```\n\n### Notes\n\n- Ensure that the ship ID in the URL corresponds to an existing ship in the database before making the update request.\n    \n- The response will contain the updated values for `name` and `email`, which may be empty if the update was not successful or the values were not provided correctly."
@@ -209,15 +213,16 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/ships/1",
-					"protocol": "http",
+					"raw": "https://ship-management-api.onrender.com/ships/2",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"ship-management-api",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ships",
-						"1"
+						"2"
 					]
 				},
 				"description": "## Delete Ship\n\nThis endpoint is used to delete a ship resource identified by its unique ID. In this case, the ship with ID `1` is being targeted for deletion.\n\n### Request\n\n- **Method**: DELETE\n    \n- **URL**: `http://localhost:8080/ships/1`\n    \n\n### Response\n\n- **Status Code**: 200\n    \n\nThe response indicates that the deletion was successful. The content of the response is in XML format, but no additional data is returned.\n\n### Notes\n\n- Ensure that the ship ID provided in the URL corresponds to an existing ship in the system.\n    \n- Deleting a ship is irreversible. Make sure to confirm the action before sending the request."
