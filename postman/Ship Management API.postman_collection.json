@@ -1,0 +1,264 @@
+{
+	"info": {
+		"_postman_id": "76515879-3661-4ef7-910a-37c35dd08172",
+		"name": "Ship Management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47352817"
+	},
+	"item": [
+		{
+			"name": "Get All Ships",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ships",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ships"
+					]
+				},
+				"description": "### GET /ships\n\nThis endpoint retrieves a list of ships from the server. It is designed to provide users with information about available ships, including their unique identifiers and other related details.\n\n#### Request Format\n\n- **Method**: GET\n    \n- **URL**: `http://localhost:8080/ships`\n    \n- **Headers**:\n    \n    - `Content-Type`: application/json\n        \n\n#### Response Format\n\n- **Status Code**: 200 OK\n    \n- **Content-Type**: application/json\n    \n- **Response Body**: An array of ship objects, where each object contains the following fields:\n    \n    - `id` (integer): The unique identifier of the ship.\n        \n    - `name` (string): The name of the ship.\n        \n    - `email` (string): An associated email address (if applicable).\n        \n\nThis endpoint does not require any parameters in the request. The response will provide an array of ships, which can be used for further processing or display in the client application."
+			},
+			"response": []
+		},
+		{
+			"name": "Get ship by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response contains ship data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.expect(jsonData).to.have.property(\"name\");\r",
+							"    pm.expect(jsonData).to.have.property(\"email\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ships/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ships",
+						"1"
+					]
+				},
+				"description": "## Retrieve Ship Details\n\nThis endpoint retrieves the details of a specific ship identified by its unique ID.\n\n### Request\n\n- **Method:** GET\n    \n- **URL:** `http://localhost:8080/ships/{id}`\n    \n- **Path Parameter:**\n    \n    - `id` (integer): The unique identifier of the ship you wish to retrieve. In this example, the ID is `1`.\n        \n\n### Response\n\n- **Status Code:** 200 OK\n    \n- **Content-Type:** application/json\n    \n- **Response Body:**\n    \n    - `id` (integer): The unique identifier of the ship.\n        \n    - `name` (string): The name of the ship.\n        \n    - `email` (string): Contact email associated with the ship.\n        \n\n### Notes\n\n- Ensure that the ID provided in the request path corresponds to an existing ship in the database.\n    \n- The response will return the ship's details, including its ID, name, and email.\n    \n- If the ship does not exist, a different status code will be returned."
+			},
+			"response": []
+		},
+		{
+			"name": "Create new ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has an id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"Titanic\", \"email\": \"titanic@ships.com\" }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ships",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ships"
+					]
+				},
+				"description": "# Create Ship\n\nThis endpoint allows users to create a new ship entry in the system. Upon successful creation, the server will respond with the details of the newly created ship, including a unique identifier.\n\n### Method\n\n`POST`\n\n### URL\n\n`http://localhost:8080/ships`\n\n### Request Body\n\nThe request must include a JSON object with the following parameters:\n\n- **name** (string): The name of the ship. This field is required.\n    \n- **email** (string): The email associated with the ship. This field is required.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"name\": \"Titanic\",\n  \"email\": \"titanic@ships.com\"\n}\n\n ```\n\n## Response\n\n### Status Code\n\n- `201 Created`: Indicates that the ship has been successfully created.\n    \n\n### Response Body\n\nThe response will return a JSON object containing the following fields:\n\n- **id** (integer): A unique identifier for the newly created ship.\n    \n- **name** (string): The name of the ship as provided in the request.\n    \n- **email** (string): The email associated with the ship as provided in the request.\n    \n\n**Example Response:**\n\n``` json\n{\n    \"id\": 1,\n    \"name\": \"Titanic\",\n    \"email\": \"titanic@ships.com\"\n}\n\n ```\n\n### Notes\n\n- Ensure that both `name` and `email` fields are provided in the request body to avoid errors.\n    \n- The `id` field in the response will be generated by the server and will be unique for each ship entry."
+			},
+			"response": []
+		},
+		{
+			"name": "Update ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response contains updated name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"Updated Titanic\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"Updated Titanic\", \"email\": \"titanicUpdated@ships.com\" }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ships/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ships",
+						"1"
+					]
+				},
+				"description": "### Update Ship Information\n\nThis endpoint allows you to update the information of a specific ship identified by its unique ID. In this case, the ship with ID `1` is being updated with new details.\n\n#### Request\n\n- **Method**: PUT\n    \n- **URL**: `http://localhost:8080/ships/1`\n    \n- ParameterTypeDescriptionnamestringThe updated name of the ship.emailstringThe updated email associated with the ship.\n    \n\n**Example Request Body**:\n\n``` json\n{\n  \"name\": \"Updated Titanic\",\n  \"email\": \"titanicUpdated@ships.com\"\n}\n\n ```\n\n#### Response\n\nUpon a successful update, the server will respond with a status code of `200` and a JSON object containing the updated ship information. The structure of the response is as follows:\n\n- **id**: The unique identifier of the ship (may be `0` if not applicable).\n    \n- **name**: The updated name of the ship (will reflect the new value).\n    \n- **email**: The updated email associated with the ship (will reflect the new value).\n    \n\n**Example Response**:\n\n``` json\n{\n  \"id\": 1,\n  \"name\": \"Updated Titanic\",\n  \"email\": \"titanicUpdated@ships.com\"\n}\n\n ```\n\n### Notes\n\n- Ensure that the ship ID in the URL corresponds to an existing ship in the database before making the update request.\n    \n- The response will contain the updated values for `name` and `email`, which may be empty if the update was not successful or the values were not provided correctly."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ships/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ships",
+						"1"
+					]
+				},
+				"description": "## Delete Ship\n\nThis endpoint is used to delete a ship resource identified by its unique ID. In this case, the ship with ID `1` is being targeted for deletion.\n\n### Request\n\n- **Method**: DELETE\n    \n- **URL**: `http://localhost:8080/ships/1`\n    \n\n### Response\n\n- **Status Code**: 200\n    \n\nThe response indicates that the deletion was successful. The content of the response is in XML format, but no additional data is returned.\n\n### Notes\n\n- Ensure that the ship ID provided in the URL corresponds to an existing ship in the system.\n    \n- Deleting a ship is irreversible. Make sure to confirm the action before sending the request."
+			},
+			"response": []
+		},
+		{
+			"name": "Negative Test Example",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404 for missing ship\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ships/999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ships",
+						"999"
+					]
+				},
+				"description": "## Retrieve Ship Information\n\nThis endpoint is used to retrieve information about a specific ship identified by its unique ID. The request is made using the HTTP GET method.\n\n### Request\n\n- **Method**: GET\n    \n- **URL**: `http://localhost:8080/ships/{id}`\n    \n- **Path Parameter**:\n    \n    - `id` (required): The unique identifier for the ship you want to retrieve information for. In this example, the ID is `999`.\n        \n\n### Response\n\nThe response will be in JSON format. The possible outcomes include:\n\n- **Status Code**:\n    \n    - `200 OK`: Indicates that the request was successful and the ship information is returned.\n        \n    - `404 Not Found`: Indicates that no ship exists with the provided ID. The response will include an error message in JSON format.\n        \n\n#### Example Response for 404 Not Found:\n\n``` json\n{\n  \"error\": \"Ship not found with id: 999\"\n}\n\n ```"
+			},
+			"response": []
+		}
+	]
+}
