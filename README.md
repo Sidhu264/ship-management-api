@@ -33,7 +33,7 @@ Deployed live on **Render**.
 ## ⚙️ Tech Stack
 
 - Java 21  
-- Spring Boot 3.x  
+- Spring Boot 3  
 - Spring Data JPA  
 - H2 Database  
 - Lombok  
